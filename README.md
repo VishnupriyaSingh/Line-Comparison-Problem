@@ -1,2 +1,2 @@
 # Line-Comparison-Problem
-Line Comparison Problem Solution
+Day-2 Line Comparison Problem Solution
