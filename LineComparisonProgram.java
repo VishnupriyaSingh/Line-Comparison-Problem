@@ -21,14 +21,8 @@ class Line {
         return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        Line line = (Line) obj;
-        return Double.compare(calculateLength(), line.calculateLength()) == 0;
+    public int compareTo(Line otherLine) {
+        return Double.compare(this.calculateLength(), otherLine.calculateLength());
     }
 }
 
@@ -36,31 +30,36 @@ public class LineComparisonProgram {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Line Comparison Computation Program - UC2");
+        System.out.println("Welcome to Line Comparison Computation Program - UC3");
 
-        Line line1 = createLine(scanner, "first");
-        Line line2 = createLine(scanner, "second");
+        System.out.println("Enter details for the first line:");
+        Line line1 = createLine(scanner);
+
+        System.out.println("Enter details for the second line:");
+        Line line2 = createLine(scanner);
 
         double length1 = line1.calculateLength();
         double length2 = line2.calculateLength();
-
         System.out.println("Length of the first line: " + length1);
         System.out.println("Length of the second line: " + length2);
 
-        if (line1.equals(line2)) {
-            System.out.println("The two lines are equal in length.");
+        int comparisonResult = line1.compareTo(line2);
+        if (comparisonResult > 0) {
+            System.out.println("The first line is longer than the second line.");
+        } else if (comparisonResult < 0) {
+            System.out.println("The first line is shorter than the second line.");
         } else {
-            System.out.println("The two lines are not equal in length.");
+            System.out.println("Both lines are equal in length.");
         }
 
         scanner.close();
     }
 
-    private static Line createLine(Scanner scanner, String lineOrder) {
-        System.out.println("Enter x1 and y1 for the " + lineOrder + " line:");
+    private static Line createLine(Scanner scanner) {
+        System.out.println("Enter x1, y1 (coordinates of the first point):");
         int x1 = scanner.nextInt();
         int y1 = scanner.nextInt();
-        System.out.println("Enter x2 and y2 for the " + lineOrder + " line:");
+        System.out.println("Enter x2, y2 (coordinates of the second point):");
         int x2 = scanner.nextInt();
         int y2 = scanner.nextInt();
         return new Line(new Point(x1, y1), new Point(x2, y2));
